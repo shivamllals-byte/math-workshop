@@ -147,3 +147,43 @@ if (authForms.length > 0) {
     });
   });
 }
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+function signup() {
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+
+    .then((userCredential) => {
+
+      const user = userCredential.user;
+
+      db.collection("students").add({
+        name: name,
+        email: email,
+        uid: user.uid,
+        createdAt: new Date()
+      });
+
+      alert("Signup Successful!");
+
+      window.location.href = "dashboard.html";
+
+    })
+
+    .catch((error) => {
+      alert(error.message);
+    });
+}
