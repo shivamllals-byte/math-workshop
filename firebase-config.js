@@ -1,5 +1,5 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+window.firebaseConfig = {
   apiKey: "AIzaSyC4b0ifHVRGWiHYxbltIDuhBI6sR-erCJA",
   authDomain: "maths-worshop.firebaseapp.com",
   projectId: "maths-worshop",
