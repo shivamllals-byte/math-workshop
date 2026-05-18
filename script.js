@@ -187,3 +187,53 @@ function signup() {
       alert(error.message);
     });
 }
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+const form = document.querySelector(".contact-form");
+
+form.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+
+  const grade = document.getElementById("grade").value;
+
+  const email = document.getElementById("parent-email").value;
+
+  const message = document.getElementById("message").value;
+
+  db.collection("students").add({
+    name: name,
+    grade: grade,
+    email: email,
+    message: message,
+    createdAt: new Date()
+  })
+
+  .then(() => {
+
+    alert("Data submitted successfully!");
+
+    form.reset();
+
+  })
+
+  .catch((error) => {
+
+    alert(error.message);
+
+  });
+
+});
