@@ -13,10 +13,9 @@
   <div class="page-orb orb-one"></div>
   <div class="page-orb orb-two"></div>
   <div class="grid-glow"></div>
-
   <header class="site-header">
     <nav class="navbar">
-      <a href="index.html" class="brand">
+      <a href="#home" class="brand">
         <span class="brand-badge">MS</span>
         <span class="brand-text">MathSpark Workshop</span>
       </a>
@@ -29,7 +28,6 @@
         <a href="index.html">Home</a>
         <a href="courses.html">Courses</a>
         <a href="#contact">Contact</a>
-        <a href="login.html">Login</a>
         <a href="signup.html" class="nav-cta">Join Now</a>
       </div>
     </nav>
@@ -121,7 +119,7 @@
             <li>Concept games and puzzles</li>
             <li>Weekly mini assessments</li>
           </ul>
-          <a href="signup.html?course=class-6" class="course-link">Start learning</a>
+          <a href="signup.html" class="course-link">Start learning</a>
         </article>
 
         <article class="course-card featured">
@@ -133,7 +131,7 @@
             <li>Doubt-clearing sessions</li>
             <li>Speed and accuracy drills</li>
           </ul>
-          <a href="signup.html?course=class-8" class="course-link">Reserve a seat</a>
+          <a href="signup.html" class="course-link">Reserve a seat</a>
         </article>
 
         <article class="course-card">
@@ -182,11 +180,11 @@
         <label for="grade">Class</label>
         <select id="grade" name="grade" required>
           <option value="">Select class</option>
-          <option value="Class 6">Class 6</option>
-          <option value="Class 7">Class 7</option>
-          <option value="Class 8">Class 8</option>
-          <option value="Class 9">Class 9</option>
-          <option value="Class 10">Class 10</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+          <option value="9">Class 9</option>
+          <option value="10">Class 10</option>
         </select>
 
         <label for="parent-email">Parent Email</label>
@@ -205,7 +203,9 @@
     <p>&copy; 2026 MathSpark Workshop. Learning maths with confidence.</p>
   </footer>
 
-  <script src="firebase-config.js"></script>
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
 </body>
 </html>
