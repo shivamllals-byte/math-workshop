@@ -5,11 +5,23 @@ const contactStatus = document.querySelector(".form-status");
 const heroVisual = document.querySelector(".hero-visual");
 const authForms = document.querySelectorAll(".auth-form");
 const enrollButtons = document.querySelectorAll(".enroll-button");
+const paymentLinks = document.querySelectorAll(".payment-link");
+const paymentTitle = document.querySelector(".payment-title");
+const paymentCourseChip = document.querySelector(".payment-course-chip");
+const paymentCourseLabel = document.querySelector(".payment-course-label");
+const paymentDescription = document.querySelector(".payment-description");
 const revealElements = document.querySelectorAll(
-  ".hero-content, .hero-visual, .course-card, .contact-copy, .contact-form, .page-hero-copy, .page-hero-panel, .class-card, .auth-copy, .auth-card"
+  ".hero-content, .hero-visual, .course-card, .contact-copy, .contact-form, .page-hero-copy, .page-hero-panel, .class-card, .auth-copy, .auth-card, .payment-copy, .payment-card"
 );
 const supportsReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let firebaseServicesPromise = null;
+const courseMap = {
+  "class-6": "Class 6",
+  "class-7": "Class 7",
+  "class-8": "Class 8",
+  "class-9": "Class 9",
+  "class-10": "Class 10"
+};
 
 function safeStorageGet(key) {
   try {
@@ -149,6 +161,29 @@ enrollButtons.forEach((button) => {
   });
 });
 
+paymentLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    const selected = link.dataset.course || "";
+    if (selected) {
+      safeStorageSet("selectedCourse", selected);
+    }
+  });
+});
+
+if (paymentTitle && paymentCourseChip && paymentCourseLabel && paymentDescription) {
+  const params = new URLSearchParams(window.location.search);
+  const courseFromQuery = params.get("course");
+  const storedCourse = safeStorageGet("selectedCourse");
+  const selectedCourse = courseMap[courseFromQuery] || storedCourse || "";
+
+  if (selectedCourse) {
+    paymentCourseChip.textContent = selectedCourse;
+    paymentTitle.textContent = `Scan the QR to reserve your ${selectedCourse} seat.`;
+    paymentCourseLabel.textContent = `${selectedCourse} Enrollment`;
+    paymentDescription.textContent = `Quick, simple payment for ${selectedCourse}. After payment, contact us with your class and student name so we can confirm your seat faster.`;
+  }
+}
+
 if (contactForm && contactStatus) {
   contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -184,14 +219,6 @@ if (authForms.length > 0) {
   const courseFromQuery = params.get("course");
   const storedCourse = safeStorageGet("selectedCourse");
   const signupClassSelect = document.querySelector("#signup-class");
-  const courseMap = {
-    "class-6": "Class 6",
-    "class-7": "Class 7",
-    "class-8": "Class 8",
-    "class-9": "Class 9",
-    "class-10": "Class 10"
-  };
-
   let selectedCourse = courseMap[courseFromQuery] || storedCourse;
 
   if (signupClassSelect && selectedCourse) {

@@ -1029,6 +1029,187 @@ section,
   font-weight: 700;
 }
 
+.payment-page {
+  padding-top: 3rem;
+}
+
+.payment-hero {
+  display: grid;
+  grid-template-columns: 1.02fr 0.98fr;
+  gap: 1.6rem;
+  align-items: stretch;
+}
+
+.payment-copy,
+.payment-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.payment-copy {
+  display: grid;
+  align-content: start;
+  gap: 1.3rem;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(20, 184, 166, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(237, 245, 255, 0.92));
+}
+
+.payment-copy h1,
+.payment-card h2 {
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.payment-copy h1 {
+  font-size: clamp(2.4rem, 4.4vw, 4.5rem);
+}
+
+.payment-description {
+  color: var(--muted);
+  font-size: 1.04rem;
+  max-width: 56ch;
+}
+
+.payment-note {
+  padding: 1.2rem 1.25rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(22, 32, 61, 0.08);
+  box-shadow: var(--shadow-soft);
+}
+
+.payment-note strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+}
+
+.payment-note p {
+  color: var(--muted);
+}
+
+.payment-meta {
+  display: grid;
+  gap: 1rem;
+}
+
+.payment-card {
+  display: grid;
+  gap: 1.4rem;
+  align-content: start;
+  padding: 2rem;
+  background:
+    linear-gradient(180deg, rgba(25, 33, 59, 0.98), rgba(33, 52, 94, 0.98)),
+    #1a223f;
+  color: #fff;
+}
+
+.payment-card::before {
+  content: "";
+  position: absolute;
+  inset: 1rem 1rem auto auto;
+  width: 110px;
+  height: 110px;
+  border-radius: 28px;
+  background: radial-gradient(circle, rgba(255, 122, 69, 0.45), rgba(255, 122, 69, 0.04));
+  filter: blur(6px);
+}
+
+.payment-card-top {
+  position: relative;
+  z-index: 1;
+}
+
+.payment-badge {
+  display: inline-flex;
+  margin-bottom: 0.9rem;
+  padding: 0.48rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.payment-card-top h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.payment-card-top p {
+  margin-top: 0.65rem;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.qr-shell {
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
+  border-radius: 30px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 56px rgba(9, 15, 33, 0.38);
+}
+
+.qr-shell::after {
+  content: "";
+  position: absolute;
+  inset: auto -18px -18px auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.28), transparent 70%);
+}
+
+.payment-qr {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(100%, 410px);
+  margin: 0 auto;
+  border-radius: 22px;
+  background: #fff;
+}
+
+.payment-contact {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-row span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+}
+
+.contact-row a {
+  color: #fff;
+  font-weight: 700;
+  word-break: break-word;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(34px) scale(0.98);
@@ -1108,7 +1289,8 @@ section,
   .course-grid,
   .page-hero,
   .course-listing,
-  .auth-layout {
+  .auth-layout,
+  .payment-hero {
     grid-template-columns: 1fr;
   }
 
@@ -1157,9 +1339,15 @@ section,
   .hero-actions,
   .hero-highlights,
   .hero-stats,
-  .class-card-bottom {
+  .class-card-bottom,
+  .contact-row {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .payment-copy,
+  .payment-card {
+    padding: 1.4rem;
   }
 
   .hero-visual {

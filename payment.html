@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserve Your Seat | MathSpark Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-orb orb-one"></div>
+  <div class="page-orb orb-two"></div>
+  <div class="grid-glow"></div>
+
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="brand">
+        <span class="brand-badge">MS</span>
+        <span class="brand-text">MathSpark Workshop</span>
+      </a>
+      <button class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html" class="nav-cta">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="inner-page payment-page">
+    <section class="payment-hero">
+      <div class="payment-copy">
+        <p class="eyebrow payment-course-chip">Reserve Your Seat</p>
+        <h1 class="payment-title">Scan the QR to reserve your workshop seat.</h1>
+        <p class="payment-description">
+          Quick, simple payment for your maths workshop enrollment. After payment, contact us with
+          your class and student name so we can confirm your seat faster.
+        </p>
+
+        <div class="payment-note">
+          <strong>What to do next</strong>
+          <p>Send your payment screenshot, student name, and selected class on the contact details below.</p>
+        </div>
+
+        <div class="payment-meta">
+          <div class="mini-stat">
+            <strong class="payment-course-label">General Enrollment</strong>
+            <span>Class will appear here when you open this page from a course button.</span>
+          </div>
+          <div class="mini-stat">
+            <strong>PhonePe Accepted</strong>
+            <span>Scan with PhonePe or any UPI app that supports QR payments.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-card">
+        <div class="payment-card-top">
+          <span class="payment-badge">Secure UPI Payment</span>
+          <h2>Reserve your learning slot</h2>
+          <p>Scan and pay to confirm your seat in the next batch.</p>
+        </div>
+
+        <div class="qr-shell">
+          <img src="assets/qr.jpeg" alt="PhonePe QR code for workshop enrollment payment" class="payment-qr">
+        </div>
+
+        <div class="payment-contact">
+          <div class="contact-row">
+            <span>Email</span>
+            <a href="mailto:nayanmungre55@gmail.com">nayanmungre55@gmail.com</a>
+          </div>
+          <div class="contact-row">
+            <span>Phone</span>
+            <a href="tel:+918817777799">88177 77799</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 MathSpark Workshop. Learning maths with confidence.</p>
+  </footer>
+
+  <script src="firebase-config.js?v=4"></script>
+  <script type="module" src="script.js?v=4"></script>
+</body>
+</html>
