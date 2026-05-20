@@ -5,13 +5,16 @@ const contactStatus = document.querySelector(".form-status");
 const heroVisual = document.querySelector(".hero-visual");
 const authForms = document.querySelectorAll(".auth-form");
 const enrollButtons = document.querySelectorAll(".enroll-button");
-const paymentLinks = document.querySelectorAll(".payment-link");
+const gatedLinks = document.querySelectorAll(".gated-link");
 const paymentTitle = document.querySelector(".payment-title");
 const paymentCourseChip = document.querySelector(".payment-course-chip");
 const paymentCourseLabel = document.querySelector(".payment-course-label");
 const paymentDescription = document.querySelector(".payment-description");
+const loginPopup = document.querySelector("#login-popup");
+const popupCloseButtons = document.querySelectorAll("[data-close-popup]");
+const signupRedirectLink = document.querySelector(".signup-redirect-link");
 const revealElements = document.querySelectorAll(
-  ".hero-content, .hero-visual, .course-card, .contact-copy, .contact-form, .page-hero-copy, .page-hero-panel, .class-card, .auth-copy, .auth-card, .payment-copy, .payment-card"
+  ".hero-content, .hero-visual, .course-card, .contact-copy, .contact-form, .page-hero-copy, .page-hero-panel, .class-card, .auth-copy, .auth-card, .payment-copy, .payment-card, .login-popup-card"
 );
 const supportsReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let firebaseServicesPromise = null;
@@ -34,6 +37,14 @@ function safeStorageGet(key) {
 function safeStorageSet(key, value) {
   try {
     window.localStorage.setItem(key, value);
+  } catch {
+    // Ignore storage failures.
+  }
+}
+
+function safeStorageRemove(key) {
+  try {
+    window.localStorage.removeItem(key);
   } catch {
     // Ignore storage failures.
   }
@@ -68,6 +79,15 @@ function toFriendlyError(error) {
   }
 
   return error?.message || "Something went wrong. Please try again.";
+}
+
+function getRedirectTarget() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("redirect") || safeStorageGet("pendingRedirect") || "";
+}
+
+function buildLoginHref(redirectTarget) {
+  return redirectTarget ? `login.html?redirect=${encodeURIComponent(redirectTarget)}` : "login.html";
 }
 
 async function initFirebaseServices() {
@@ -157,18 +177,42 @@ if (heroVisual && !supportsReducedMotion) {
 enrollButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const selected = button.closest(".class-card")?.querySelector(".class-pill")?.textContent || "";
-    safeStorageSet("selectedCourse", selected);
-  });
-});
-
-paymentLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    const selected = link.dataset.course || "";
     if (selected) {
       safeStorageSet("selectedCourse", selected);
     }
   });
 });
+
+gatedLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    const selected = link.dataset.course || "";
+    const redirectTarget = link.dataset.redirect || "";
+    if (selected) {
+      safeStorageSet("selectedCourse", selected);
+    }
+    if (redirectTarget) {
+      safeStorageSet("pendingRedirect", redirectTarget);
+      link.href = buildLoginHref(redirectTarget);
+    }
+  });
+});
+
+if (loginPopup) {
+  const dismissed = safeStorageGet("dismissedLoginPopup");
+
+  if (dismissed === "true") {
+    loginPopup.classList.remove("is-visible");
+    loginPopup.setAttribute("aria-hidden", "true");
+  }
+
+  popupCloseButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      loginPopup.classList.remove("is-visible");
+      loginPopup.setAttribute("aria-hidden", "true");
+      safeStorageSet("dismissedLoginPopup", "true");
+    });
+  });
+}
 
 if (paymentTitle && paymentCourseChip && paymentCourseLabel && paymentDescription) {
   const params = new URLSearchParams(window.location.search);
@@ -217,9 +261,14 @@ if (contactForm && contactStatus) {
 if (authForms.length > 0) {
   const params = new URLSearchParams(window.location.search);
   const courseFromQuery = params.get("course");
+  const redirectTarget = params.get("redirect") || safeStorageGet("pendingRedirect") || "";
   const storedCourse = safeStorageGet("selectedCourse");
   const signupClassSelect = document.querySelector("#signup-class");
   let selectedCourse = courseMap[courseFromQuery] || storedCourse;
+
+  if (signupRedirectLink && redirectTarget) {
+    signupRedirectLink.href = `signup.html?redirect=${encodeURIComponent(redirectTarget)}`;
+  }
 
   if (signupClassSelect && selectedCourse) {
     signupClassSelect.value = selectedCourse;
@@ -260,7 +309,9 @@ if (authForms.length > 0) {
           setStatus(status, `Welcome back! ${email} is now logged in.`);
           authForm.reset();
           window.setTimeout(() => {
-            window.location.href = "dashboard.html";
+            const nextPage = redirectTarget || "dashboard.html";
+            safeStorageRemove("pendingRedirect");
+            window.location.href = nextPage;
           }, 1200);
           return;
         }
@@ -294,7 +345,10 @@ if (authForms.length > 0) {
           }
 
           window.setTimeout(() => {
-            window.location.href = "login.html";
+            const loginUrl = redirectTarget
+              ? `login.html?redirect=${encodeURIComponent(redirectTarget)}`
+              : "login.html";
+            window.location.href = loginUrl;
           }, 1400);
         }
       } catch (error) {
