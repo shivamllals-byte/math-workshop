@@ -1380,15 +1380,18 @@ section,
   }
 }
 
-@media (max-width: 920px) {
+@media (max-width: 1100px) {
   .hero,
   .contact,
-  .course-grid,
   .page-hero,
   .course-listing,
   .auth-layout,
   .payment-hero {
     grid-template-columns: 1fr;
+  }
+
+  .course-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .hero {
@@ -1397,7 +1400,7 @@ section,
   }
 
   .hero-visual {
-    min-height: 460px;
+    min-height: 440px;
     order: -1;
   }
 
@@ -1410,7 +1413,19 @@ section,
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 860px) {
+  .course-grid,
+  .course-listing {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats div,
+  .mini-stat {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 820px) {
   .menu-toggle {
     display: inline-block;
   }
@@ -1449,6 +1464,14 @@ section,
   .payment-copy,
   .payment-card {
     padding: 1.4rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+  }
+
+  .benefit-pill {
+    width: 100%;
   }
 
   .hero-visual {
